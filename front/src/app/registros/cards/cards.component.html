@@ -1,0 +1,16 @@
+<div class="cards-wrapper">
+  <div class="cards">
+    <div class="card">
+      <h2>Total de clientes</h2>
+      <ng-content select="[total]"></ng-content>
+    </div>
+    <div class="card">
+      <h2>Idade média dos clientes</h2>
+      <ng-content select="[idadeMedia]"></ng-content>
+    </div>
+    <div class="card">
+      <h2>Clientes novos nesse mês</h2>
+      <ng-content select="[novosClientes]"></ng-content>
+    </div>
+  </div>
+</div>

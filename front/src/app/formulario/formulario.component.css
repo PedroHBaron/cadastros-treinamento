@@ -1,0 +1,56 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(232, 244, 255);
+    padding: 3rem 0;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;  
+}
+
+.formulario {
+    width: 40rem;
+    padding: 2rem 6rem;
+    background-color: var(--cinzaConceito);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.campo {
+    width: 10rem;
+    height: 2rem;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: var(--azulCampos);
+}
+
+.campo-checkbox {
+    width: 1.33rem;
+    height: 1.33rem;
+}
+
+.campo-label {
+    text-align: center;
+}
+
+button { 
+    width: 10rem;
+    height: 3rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--azulCampos);
+}
+
+button:hover {
+    background-color: var(--azulConceito);
+}

@@ -1,0 +1,8 @@
+front/node_modules/*
+front/package-lock.json
+front/.angular
+
+back/cadastro-api/node_modules/*
+back/cadastro-api/package-lock.json
+back/cadastro-api/.env
+back/cadastro-api/dist

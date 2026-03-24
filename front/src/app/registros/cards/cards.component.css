@@ -1,0 +1,25 @@
+.cards-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.cards {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--cinzaConceito);
+    padding-bottom: 0.7rem;
+    padding-top: 0.7rem;
+    width: 80%;
+}
+
+.card {
+    text-align: center;
+    background-color: var(--azulConceito);
+    border-radius: 3rem;
+    padding: 3rem;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}

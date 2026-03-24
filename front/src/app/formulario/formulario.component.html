@@ -1,0 +1,95 @@
+<main>
+  <form class="formulario" (ngSubmit)="cadastrar()" ngNativeValidate>
+    <div class="form-wrapper">
+      <label id="nome" class="campo-label">
+        Nome
+        <div class="campo-wrapper">
+          <input
+            type="text"
+            class="campo"
+            name="nome"
+            [(ngModel)]="cliente.nome"
+            required
+          />
+        </div>
+      </label>
+      <label id="cpf" class="campo-label">
+        CPF
+        <div class="campo-wrapper">
+          <input
+            type="text"
+            placeholder="999.999.999-99"
+            minLength="11"
+            maxlength="11"
+            class="campo"
+            name="cpf"
+            [(ngModel)]="cliente.cpf"
+            required
+          />
+        </div>
+      </label>
+      <label id="data-nascimento" class="campo-label">
+        Data de nascimento
+        <div class="campo-wrapper">
+          <input
+            type="date"
+            class="campo"
+            required
+            name="dtn"
+            [(ngModel)]="cliente.data_nascimento"
+          />
+        </div>
+      </label>
+      <label id="email" class="campo-label">
+        E-mail
+        <div class="campo-wrapper">
+          <input
+            type="email"
+            class="campo"
+            required
+            name="email"
+            [(ngModel)]="cliente.email"
+          />
+        </div>
+      </label>
+      <label id="telefone" class="campo-label">
+        Telefone para contato
+        <div class="campo-wrapper">
+          <input
+            type="tel"
+            class="campo"
+            required
+            name="telefone"
+            [(ngModel)]="cliente.telefone"
+          />
+        </div>
+      </label>
+      <label id="profissao" class="campo-label">
+        Profissão
+        <div class="campo-wrapper">
+          <input
+            type="text"
+            class="campo"
+            required
+            name="profissao"
+            [(ngModel)]="cliente.profissao"
+          />
+        </div>
+      </label>
+      <label id="termos" class="campo-label">
+        Você concorda com os termos de condições?
+        <div class="campo-wrapper">
+          <input
+            type="checkbox"
+            class="campo-checkbox"
+            required
+            name="termos"
+            [(ngModel)]="cliente.termos"
+          />
+        </div>
+      </label>
+    </div>
+    <app-botao type="submit">Cadastrar</app-botao>
+  </form>
+  <app-botao (click)="voltar()">Voltar</app-botao>
+</main>

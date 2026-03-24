@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+}
+dialog {
+    left: 50%;
+    top: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 65%;
+    border: 0.12rem solid black;
+    border-radius: 20px;
+    background: var(--cinzaConceito);
+}
+
+
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+button {
+    position: absolute;
+    font-size: 3rem;
+    background: none;
+    color: red;
+    cursor: pointer;
+    border: 0.08rem solid black;
+    padding: 0.25rem 0.75rem;
+}

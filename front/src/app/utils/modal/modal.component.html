@@ -1,0 +1,13 @@
+<dialog #modal (close)="fecharModal()" class="dialog">
+    <div class="btn-wrapper">
+        <button (click)="fecharModal()">X</button>
+    </div>
+    <div class="conteudo">
+        <header>
+            <ng-content [select]="[modal-cabecalho]"></ng-content>
+        </header>
+        <main>
+            <ng-content></ng-content>
+        </main>
+    </div>
+</dialog>

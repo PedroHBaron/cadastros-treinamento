@@ -1,0 +1,34 @@
+<app-filtros (filtro)="aplicarFiltro($event)"></app-filtros>
+<app-cards>
+  <p total>{{ totalCLiente }}</p>
+  <p idadeMedia>{{ idadeMedia }}</p>
+  <p novosClientes>{{ clientesNovos }}</p>
+</app-cards>
+<h3>Lista de clientes</h3>
+<table>
+  <tr>
+    <th>CPF</th>
+    <th>Nome</th>
+    <th>E-mail</th>
+    <th>telefone</th>
+    <th>profissão</th>
+    <th>Data de cadastro</th>
+    <th>Ações</th>
+  </tr>
+  @for (cliente of clientes; track cliente.cpf) {
+    <tr>
+      <td>{{ cliente.cpf }}</td>
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.telefone }}</td>
+      <td>{{ cliente.profissao }}</td>
+      <td>{{ cliente.data_registro }}</td>
+      <td>
+        <div>
+          <button (click)="onDelete(cliente)">Deletar</button>
+          <button (click)="onEdit(cliente)">Editar</button>
+        </div>
+      </td>
+    </tr>
+  }
+</table>

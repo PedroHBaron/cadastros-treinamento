@@ -1,0 +1,21 @@
+div {
+    font-size: 3rem;
+    text-align: center;
+    background-color: var(--azulConceito);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 6rem;
+    padding: 4rem;
+}
+
+.botao-clientes {
+    margin-right: auto;
+    margin-left: 5rem;
+}
+
+h1 {
+    margin: 2rem 0;
+    text-align: center;
+    margin-right: auto;
+}

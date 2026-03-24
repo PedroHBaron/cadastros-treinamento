@@ -1,0 +1,8 @@
+button {
+    height: 3rem;
+    width: 8rem;
+    background-color: var(--azulCampos);
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
