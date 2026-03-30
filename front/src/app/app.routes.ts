@@ -16,7 +16,7 @@ export const routes: Routes = [
         component: RegistrosComponent,
       },
       {
-        path: ':cpf',
+        path: ':id',
         component: FormularioComponent,
       },
     ],

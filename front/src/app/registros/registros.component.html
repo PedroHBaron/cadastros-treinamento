@@ -1,34 +1,115 @@
-<app-filtros (filtro)="aplicarFiltro($event)"></app-filtros>
 <app-cards>
   <p total>{{ totalCLiente }}</p>
   <p idadeMedia>{{ idadeMedia }}</p>
   <p novosClientes>{{ clientesNovos }}</p>
 </app-cards>
 <h3>Lista de clientes</h3>
-<table>
-  <tr>
-    <th>CPF</th>
-    <th>Nome</th>
-    <th>E-mail</th>
-    <th>telefone</th>
-    <th>profissão</th>
-    <th>Data de cadastro</th>
-    <th>Ações</th>
-  </tr>
-  @for (cliente of clientes; track cliente.cpf) {
+
+<p-table
+  [value]="clientes"
+  dataKey="id"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  styleClass="p-datatable-gridlines p-datatable-striped"
+  [paginator]="true"
+  [rows]="4"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 9%" pSortableColumn="cpf">
+        CPF <p-sortIcon field="cpf" />
+      </th>
+      <th style="width: 25%" pSortableColumn="nome">
+        Nome <p-sortIcon field="nome" />
+      </th>
+      <th style="width: 20%" pSortableColumn="email">
+        E-mail <p-sortIcon field="email" />
+      </th>
+      <th style="width: 10%" pSortableColumn="telefone">
+        telefone <p-sortIcon field="telefone" />
+      </th>
+      <th style="width: 15%" pSortableColumn="profissao">
+        profissão <p-sortIcon field="profissao" />
+      </th>
+      <th style="width: 7%" pSortableColumn="dataCadastro">
+        Data de cadastro <p-sortIcon field="dataCadastro" />
+      </th>
+      <th>Ações</th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="cpf"
+          [showClearButton]="false"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="nome"
+          [showClearButton]="false"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="email"
+          [showClearButton]="false"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="telefone"
+          [showClearButton]="false"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="text"
+          field="profissao"
+          [showClearButton]="false"
+          [showMenu]="false"
+        />
+      </th>
+      <th>
+        <p-columnFilter
+          type="date"
+          field="dataCadastro"
+          [showClearButton]="false"
+          [showMenu]="false"
+        />
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-cliente>
     <tr>
       <td>{{ cliente.cpf }}</td>
       <td>{{ cliente.nome }}</td>
       <td>{{ cliente.email }}</td>
       <td>{{ cliente.telefone }}</td>
       <td>{{ cliente.profissao }}</td>
-      <td>{{ cliente.data_registro }}</td>
+      <td>{{ cliente.dataRegistro | date: "yyyy-MM-dd" }}</td>
       <td>
         <div>
-          <button (click)="onDelete(cliente)">Deletar</button>
-          <button (click)="onEdit(cliente)">Editar</button>
+          <button
+            pButton
+            pRipple
+            (click)="onDelete($event, cliente)"
+            label="Deletar"
+            severity="danger"
+            [outlined]="true"
+          ></button>
+          <button pButton pRipple (click)="onEdit(cliente)">Editar</button>
         </div>
       </td>
     </tr>
-  }
-</table>
+  </ng-template>
+</p-table>
+<p-toast />
+<p-confirmDialog />

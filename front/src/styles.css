@@ -1,11 +1,10 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
 :root {
     --cinzaConceito: rgb(215, 215, 215);
     --azulConceito:rgb(133, 167, 211);
     --azulCampos: rgb(192, 207, 212);
+}
+
+body {
+    padding: 0;
+    margin: 0;
 }

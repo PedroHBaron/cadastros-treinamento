@@ -7,7 +7,7 @@ import { ClienteAtualizar } from '../clienteAtualizar';
   providedIn: 'root',
 })
 export class ClienteService {
-  private urlClientes = 'http://localhost:3000/clientes';
+  private urlClientes = 'http://localhost:8080/clientes';
 
   constructor(private http: HttpClient) {}
 
@@ -15,19 +15,19 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.urlClientes);
   }
 
-  listarUnico(cpf: string) {
-    return this.http.get<Cliente>(`${this.urlClientes}/buscarporcpf/${cpf}`);
+  listarUnico(id: number) {
+    return this.http.get<Cliente>(`${this.urlClientes}/buscarporid/${id}`);
   }
 
   cadastrar(dados: Cliente) {
     return this.http.post<Cliente>(this.urlClientes, dados);
   }
 
-  atualizar(dados: ClienteAtualizar, cpf: string) {
-    return this.http.put<ClienteAtualizar>(this.urlClientes + '/' + cpf, dados);
+  atualizar(dados: ClienteAtualizar, id: number) {
+    return this.http.put<ClienteAtualizar>(this.urlClientes + '/' + id, dados);
   }
 
-  deletar(cpf: string) {
-    return this.http.delete<Cliente>(`${this.urlClientes}/${cpf}`);
+  deletar(id: number) {
+    return this.http.delete<Cliente>(`${this.urlClientes}/${id}`);
   }
 }

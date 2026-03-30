@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: pedro
+      POSTGRES_PASSWORD: 1234
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:

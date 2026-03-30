@@ -2,94 +2,84 @@
   <form class="formulario" (ngSubmit)="cadastrar()" ngNativeValidate>
     <div class="form-wrapper">
       <label id="nome" class="campo-label">
-        Nome
-        <div class="campo-wrapper">
-          <input
-            type="text"
-            class="campo"
-            name="nome"
-            [(ngModel)]="cliente.nome"
-            required
-          />
-        </div>
+        <p-floatLabel>
+          <input pInputText name="nome" [(ngModel)]="cliente.nome" required />
+          <label id="nome">Nome</label>
+        </p-floatLabel>
       </label>
       <label id="cpf" class="campo-label">
-        CPF
-        <div class="campo-wrapper">
+        <p-floatLabel>
           <input
-            type="text"
-            placeholder="999.999.999-99"
-            minLength="11"
-            maxlength="11"
-            class="campo"
+            pInputText
             name="cpf"
             [(ngModel)]="cliente.cpf"
             required
+            maxlength="11"
+            minlength="11"
+            placeholder="99999999999"
           />
-        </div>
+          <label id="cpf">CPF</label>
+        </p-floatLabel>
       </label>
-      <label id="data-nascimento" class="campo-label">
-        Data de nascimento
-        <div class="campo-wrapper">
-          <input
-            type="date"
-            class="campo"
-            required
-            name="dtn"
-            [(ngModel)]="cliente.data_nascimento"
+      <label id="dataNascimento" class="campo-label">
+        <p-floatLabel>
+          <p-calendar
+            [(ngModel)]="cliente.dataNascimento"
+            dateFormat="yy-mm-dd"
+            inputId="birth_date"
+            name="dataNascimento"
           />
-        </div>
+          <label id="dataNascimento">Data de nascimento</label>
+        </p-floatLabel>
       </label>
       <label id="email" class="campo-label">
-        E-mail
-        <div class="campo-wrapper">
+        <p-floatLabel>
           <input
             type="email"
-            class="campo"
-            required
+            pInputText
             name="email"
             [(ngModel)]="cliente.email"
+            required
           />
-        </div>
+          <label id="email">E-mail</label>
+        </p-floatLabel>
       </label>
       <label id="telefone" class="campo-label">
-        Telefone para contato
-        <div class="campo-wrapper">
+        <p-floatLabel>
           <input
             type="tel"
-            class="campo"
-            required
+            pInputText
             name="telefone"
             [(ngModel)]="cliente.telefone"
+            required
           />
-        </div>
+          <label id="telefone">Telefone</label>
+        </p-floatLabel>
       </label>
       <label id="profissao" class="campo-label">
-        Profissão
-        <div class="campo-wrapper">
+        <p-floatLabel>
           <input
-            type="text"
-            class="campo"
-            required
+            pInputText
             name="profissao"
             [(ngModel)]="cliente.profissao"
-          />
-        </div>
-      </label>
-      <label id="termos" class="campo-label">
-        Você concorda com os termos de condições?
-        <div class="campo-wrapper">
-          <input
-            type="checkbox"
-            class="campo-checkbox"
             required
-            name="termos"
-            [(ngModel)]="cliente.termos"
           />
-        </div>
+          <label id="prodissao">profissao</label>
+        </p-floatLabel>
       </label>
+      <div class="campo-wrapper">
+        Você concorda com os termos de condições?
+        <p-checkbox
+          required
+          [binary]="true"
+          inputId="binary"
+          name="termos"
+          [(ngModel)]="cliente.termos"
+          required
+        />
+      </div>
     </div>
-    <app-botao type="submit">Cadastrar</app-botao>
+    <button pButton pRipple type="submit">Cadastrar</button>
   </form>
-  <app-botao (click)="voltar()">Voltar</app-botao>
+  <button pButton pRipple (click)="voltar()">Voltar</button>
 </main>

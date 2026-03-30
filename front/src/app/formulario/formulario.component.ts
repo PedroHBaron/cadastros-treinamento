@@ -1,23 +1,38 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Cliente } from '../cliente';
-import { BotaoComponent } from '../utils/botao/botao.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '../services/cliente.service';
 import { ClienteAtualizar } from '../clienteAtualizar';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-formulario',
   standalone: true,
-  imports: [FormsModule, BotaoComponent],
+  imports: [
+    FormsModule,
+    ButtonModule,
+    RippleModule,
+    InputTextModule,
+    TableModule,
+    FloatLabelModule,
+    CalendarModule,
+    CheckboxModule,
+  ],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.css',
 })
 export class FormularioComponent {
   clientes: Cliente[] = [];
-  cliente = new Cliente('', '', '', '', 0, '', false);
+  cliente = new Cliente(0, '', '', '', '', 0, '', false);
 
-  cpf = '';
+  id = '';
 
   constructor(
     private router: Router,
@@ -27,11 +42,11 @@ export class FormularioComponent {
 
   ngOnInit() {
     this.activeRoute.params.subscribe((urlParams) => {
-      this.cpf = urlParams['cpf'];
+      this.id = urlParams['id'];
 
-      if (this.cpf !== 'new') {
+      if (this.id !== 'new') {
         this.clienteService
-          .listarUnico(this.cpf)
+          .listarUnico(parseInt(this.id))
           .subscribe((cliente: Cliente) => {
             this.cliente = cliente;
           });
@@ -40,11 +55,12 @@ export class FormularioComponent {
   }
 
   cadastrar() {
-    if (this.cpf === 'new') {
+    console.log(this.cliente);
+    if (this.id === 'new') {
       this.clienteService.cadastrar(this.cliente).subscribe({
         next: (res) => {
           alert('Novo cliente cadastrado!');
-          this.voltar();
+          //this.voltar();
         },
         error: (err) => {
           const message = err.message;
@@ -55,22 +71,23 @@ export class FormularioComponent {
       });
     } else {
       const novosDados = new ClienteAtualizar(
+        this.cliente.id,
         this.cliente.nome,
-        this.cliente.data_nascimento,
+        this.cliente.dataNascimento,
         this.cliente.email,
         this.cliente.telefone,
         this.cliente.profissao,
         this.cliente.termos,
       );
 
-      this.clienteService.atualizar(novosDados, this.cpf).subscribe({
+      this.clienteService.atualizar(novosDados, Number(this.id)).subscribe({
         next: (res) => {
           alert('Cliente editado com sucesso!');
-          this.voltar();
+          //this.voltar();
         },
         error: (err) => {
           alert('Não foi possível realizar a edição!');
-          console.log(err);
+          console.log(err.message);
           return;
         },
       });

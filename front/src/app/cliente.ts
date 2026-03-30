@@ -1,11 +1,12 @@
 export class Cliente {
-  public readonly data_registro = new Date().toLocaleDateString('en-CA');
+  public readonly dataRegistro = new Date().toLocaleDateString('en-CA');
   public ultimaAtualizacao = new Date().toLocaleDateString('en-CA');
 
   constructor(
+    public id: number,
     public nome: string,
     public readonly cpf: string,
-    public readonly data_nascimento: string,
+    public readonly dataNascimento: string,
     public email: string,
     public telefone: number,
     public profissao: string,
