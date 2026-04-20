@@ -1,4 +1,4 @@
-package com.conceito.cadastros.entities.cliente;
+package com.conceito.cadastros.entities;
 
 import com.conceito.cadastros.dto.DadosAtualizacaoCliente;
 import com.conceito.cadastros.dto.DadosCliente;

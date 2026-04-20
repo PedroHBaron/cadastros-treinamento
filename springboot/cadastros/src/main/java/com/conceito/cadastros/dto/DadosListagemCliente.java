@@ -1,4 +1,6 @@
-package com.conceito.cadastros.entities.cliente;
+package com.conceito.cadastros.dto;
+
+import com.conceito.cadastros.entities.Cliente;
 
 import java.time.LocalDate;
 

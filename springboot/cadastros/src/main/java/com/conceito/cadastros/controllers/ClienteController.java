@@ -1,7 +1,11 @@
 package com.conceito.cadastros.controllers;
 
-import com.conceito.cadastros.entities.card.DadosCard;
-import com.conceito.cadastros.entities.cliente.*;
+import com.conceito.cadastros.dto.DadosAtualizacaoCliente;
+import com.conceito.cadastros.dto.DadosCliente;
+import com.conceito.cadastros.dto.DadosListagemCliente;
+import com.conceito.cadastros.entities.Cliente;
+import com.conceito.cadastros.service.DadosCard;
+import com.conceito.cadastros.repositories.ClienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

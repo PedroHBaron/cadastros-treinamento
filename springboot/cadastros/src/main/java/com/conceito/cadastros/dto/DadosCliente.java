@@ -1,5 +1,6 @@
-package com.conceito.cadastros.entities.cliente;
+package com.conceito.cadastros.dto;
 
+import com.conceito.cadastros.entities.Cliente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,5 +1,6 @@
-package com.conceito.cadastros.entities.cliente;
+package com.conceito.cadastros.repositories;
 
+import com.conceito.cadastros.entities.Cliente;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;

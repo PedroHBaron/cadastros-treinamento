@@ -1,4 +1,4 @@
-package com.conceito.cadastros.entities.card;
+package com.conceito.cadastros.service;
 
 import com.conceito.cadastros.entities.Cliente;
 
