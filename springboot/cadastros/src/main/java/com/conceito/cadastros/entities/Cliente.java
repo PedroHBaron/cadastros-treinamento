@@ -1,7 +1,8 @@
 package com.conceito.cadastros.entities.cliente;
 
+import com.conceito.cadastros.dto.DadosAtualizacaoCliente;
+import com.conceito.cadastros.dto.DadosCliente;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 

@@ -1,6 +1,6 @@
 package com.conceito.cadastros.entities.card;
 
-import com.conceito.cadastros.entities.cliente.Cliente;
+import com.conceito.cadastros.entities.Cliente;
 
 import java.time.LocalDate;
 import java.time.Period;
