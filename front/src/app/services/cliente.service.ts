@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cliente } from '../cliente';
-import { ClienteAtualizar } from '../clienteAtualizar';
+import { Cliente } from '../entities/cliente';
+import { ClienteAtualizar } from '../entities/clienteAtualizar';
+import { Card } from '../entities/card';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +12,24 @@ export class ClienteService {
 
   constructor(private http: HttpClient) {}
 
-  listar() {
-    return this.http.get<Cliente[]>(this.urlClientes);
+  //Metódos GET ------------------------
+
+  listar(page: number, size: number, params: any) {
+    return this.http.get<Cliente[]>(
+      `${this.urlClientes}?page=${page}&size=${size}`,
+      { params },
+    );
   }
 
   listarUnico(id: number) {
     return this.http.get<Cliente>(`${this.urlClientes}/buscarporid/${id}`);
   }
+
+  gerarCards() {
+    return this.http.get<Card>(`${this.urlClientes}/cards`);
+  }
+
+  //Resto ----------
 
   cadastrar(dados: Cliente) {
     return this.http.post<Cliente>(this.urlClientes, dados);

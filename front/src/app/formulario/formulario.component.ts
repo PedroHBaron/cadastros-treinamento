@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Cliente } from '../cliente';
+import { Cliente } from '../entities/cliente';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '../services/cliente.service';
-import { ClienteAtualizar } from '../clienteAtualizar';
+import { ClienteAtualizar } from '../entities/clienteAtualizar';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';

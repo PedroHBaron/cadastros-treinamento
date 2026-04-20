@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Cliente } from '../cliente';
+import { Cliente } from '../entities/cliente';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CardsComponent } from './cards/cards.component';
@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { Card } from '../entities/card';
 
 @Component({
   selector: 'app-registros',
@@ -39,9 +40,14 @@ import { ToastModule } from 'primeng/toast';
 export class RegistrosComponent {
   clientes: Cliente[] = [];
 
-  totalCLiente = 0;
-  clientesNovos = 0;
+  totalCliente = 0;
+  totalClienteCard = 0;
+  novosClientes = 0;
   idadeMedia = 0;
+
+  page = 0;
+  size = 2;
+  params: any = {};
 
   constructor(
     private router: Router,
@@ -52,80 +58,53 @@ export class RegistrosComponent {
   ) {}
 
   ngOnInit() {
-    this.relistarClientes();
+    this.relistarClientes(this.params);
+    this.relistarCards();
   }
 
-  relistarClientes() {
-    this.clienteService.listar().subscribe((clientes: Cliente[]) => {
-      this.clientes = clientes;
-      this.totalCLiente = clientes.length;
-      this.idadeMedia = this.calcularIdadeMediaClientes();
-      this.clientesNovos = this.calcularNovosClientes();
+  relistarClientes(params: any) {
+    this.clienteService
+      .listar(this.page, this.size, params)
+      .subscribe((res: any) => {
+        this.clientes = res.content;
+        this.params = {};
+        this.totalCliente = res.totalElements;
+      });
+  }
+
+  relistarCards() {
+    this.clienteService.gerarCards().subscribe((cards: Card) => {
+      this.totalClienteCard = cards.totalClientes;
+      this.idadeMedia = Number(cards.idadeMedia.toFixed(2));
+      this.novosClientes = cards.novosClientes;
     });
   }
 
-  calcularIdadeMediaClientes() {
-    const idades = this.clientes.reduce((a, cliente) => {
-      return a + this.calcularIdade(cliente.dataNascimento);
-    }, 0);
+  onPageChange(event: any) {
+    this.page = event.first / event.rows;
+    this.size = event.rows;
 
-    //Evitar divisão por zero
-    if (this.clientes.length <= 0) {
-      return 0;
-    } else {
-      return idades / this.clientes.length;
-    }
-  }
+    if (event.filters) {
+      Object.keys(event.filters).forEach((campo) => {
+        const filtro = event.filters[campo];
 
-  calcularIdade(dataNascimento: string): number {
-    const hoje = new Date();
-    const nascimento = new Date(dataNascimento);
+        if (!filtro?.value) return;
 
-    let idade = hoje.getFullYear() - nascimento.getFullYear();
-
-    const mes = hoje.getMonth() - nascimento.getMonth();
-
-    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
-      idade--;
+        if (campo === 'dataRegistro') {
+          const data = filtro.value;
+          this.params[campo] = data.toISOString().split('T')[0];
+        } else {
+          this.params[campo] = filtro.value;
+        }
+      });
     }
 
-    return idade;
-  }
-
-  calcularNovosClientes() {
-    const hoje = new Date();
-    const novosClientes = this.clientes.reduce((a, cliente) => {
-      let registro = new Date(cliente.dataRegistro);
-      //                                         mili   seg  min  h   dia
-      if (hoje.getTime() - registro.getTime() <= 1000 * 60 * 60 * 24 * 30) {
-        return ++a;
-      } else {
-        return a;
-      }
-    }, 0);
-
-    return novosClientes;
-  }
-
-  aplicarFiltro(f: any) {
-    switch (f.tipo) {
-      case 'id':
-        this.clientes = this.clientes.filter((c) => c.id == f.valor);
-        break;
-      case 'cpf':
-        this.clientes = this.clientes.filter((c) => c.cpf == f.valor);
-        break;
-      case 'nome':
-        this.clientes = this.clientes.filter((c) =>
-          c.nome.toLowerCase().includes(f.valor.toLowerCase()),
-        );
-        break;
-      case '':
-        this.relistarClientes();
-        break;
-      default:
-        break;
+    if (event.sortField) {
+      const direction = event.sortOrder === 1 ? 'asc' : 'desc';
+      this.params.sort = `${event.sortField},${direction}`;
     }
+
+    this.relistarClientes(this.params);
   }
 
   onDelete(event: Event, cliente: Cliente) {
@@ -146,7 +125,8 @@ export class RegistrosComponent {
           detail: 'Cliente excluido',
         });
         this.clienteService.deletar(cliente.id).subscribe(() => {
-          this.relistarClientes();
+          this.relistarClientes(this.params);
+          this.relistarCards();
         });
       },
       reject: () => {
@@ -158,21 +138,6 @@ export class RegistrosComponent {
       },
     });
   }
-
-  // onDelete(cliente: Cliente) {
-  //   const descliente = this.clientes.filter((c) => c.id === cliente.id)[0];
-  //   const r = prompt(
-  //     "Para deletar um cliente você precisa escrever 'deletar' na caixa abaixo\n(Essa ação não poderá ser desfeita)",
-  //   );
-  //   if (r?.toLowerCase() === 'deletar') {
-  //     this.clienteService.deletar(descliente.id).subscribe(() => {
-  //       alert(`O cliente ${descliente.nome} foi deletado com sucesso`);
-  //       this.relistarClientes();
-  //     });
-  //   } else {
-  //     alert('erro, o cliente não foi deletado');
-  //   }
-  // }
 
   onEdit(cliente: Cliente) {
     this.router.navigate([cliente.id], { relativeTo: this.activeRoute });

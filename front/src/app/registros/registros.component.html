@@ -1,7 +1,7 @@
 <app-cards>
-  <p total>{{ totalCLiente }}</p>
+  <p total>{{ totalClienteCard }}</p>
   <p idadeMedia>{{ idadeMedia }}</p>
-  <p novosClientes>{{ clientesNovos }}</p>
+  <p novosClientes>{{ novosClientes }}</p>
 </app-cards>
 <h3>Lista de clientes</h3>
 
@@ -11,7 +11,11 @@
   [tableStyle]="{ 'min-width': '50rem' }"
   styleClass="p-datatable-gridlines p-datatable-striped"
   [paginator]="true"
-  [rows]="4"
+  [rows]="2"
+  [rowsPerPageOptions]="[2, 5, 10, 20, 100]"
+  (onLazyLoad)="onPageChange($event)"
+  [lazy]="true"
+  [totalRecords]="totalCliente"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -30,8 +34,8 @@
       <th style="width: 15%" pSortableColumn="profissao">
         profissão <p-sortIcon field="profissao" />
       </th>
-      <th style="width: 7%" pSortableColumn="dataCadastro">
-        Data de cadastro <p-sortIcon field="dataCadastro" />
+      <th style="width: 7%" pSortableColumn="dataRegistro">
+        Data de cadastro <p-sortIcon field="dataRegistro" />
       </th>
       <th>Ações</th>
     </tr>
@@ -79,7 +83,7 @@
       <th>
         <p-columnFilter
           type="date"
-          field="dataCadastro"
+          field="dataRegistro"
           [showClearButton]="false"
           [showMenu]="false"
         />
