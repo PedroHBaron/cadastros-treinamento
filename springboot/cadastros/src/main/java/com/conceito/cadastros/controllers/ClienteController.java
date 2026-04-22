@@ -4,7 +4,8 @@ import com.conceito.cadastros.dto.DadosAtualizacaoCliente;
 import com.conceito.cadastros.dto.DadosCliente;
 import com.conceito.cadastros.dto.DadosListagemCliente;
 import com.conceito.cadastros.entities.Cliente;
-import com.conceito.cadastros.service.DadosCard;
+import com.conceito.cadastros.service.ClienteService;
+import com.conceito.cadastros.service.DadosCardService;
 import com.conceito.cadastros.repositories.ClienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteRepository repository;
+
+    @Autowired
+    private ClienteService service;
 
     @PostMapping
     @Transactional
@@ -49,74 +53,29 @@ public class ClienteController {
             @RequestParam(required = false) LocalDate dataRegistro,
             Pageable pageable) {
 
-
-        Specification<Cliente> spec = (root, query, cb) -> cb.conjunction();
-
-        spec = spec.and((root, query, cb) ->
-                cb.isTrue(root.get("ativo"))
-        );
-
-        if (nome != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("nome")), "%" + nome.toLowerCase() + "%"));
-        }
-        if (cpf != null && !cpf.isBlank()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("cpf"), cpf)
-            );
-        }
-
-        if (email != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("email")), "%" + email.toLowerCase() + "%"));
-        }
-
-        if (telefone != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("telefone")), "%" + telefone + "%"));
-        }
-
-        if (profissao != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("profissao")), "%" + profissao.toLowerCase() + "%"));
-        }
-
-        if (dataRegistro != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("dataRegistro"), dataRegistro)
-            );
-        }
-
-        Page<DadosListagemCliente> clientes = repository.findAll(spec, pageable).map(DadosListagemCliente::new);
-        return ResponseEntity.ok(clientes);
+        return ResponseEntity.ok(service.listar(nome, cpf, email, telefone, profissao, dataRegistro, pageable));
     }
 
     @GetMapping("/cards")
-    public ResponseEntity<DadosCard> gerarCards() {
-        List<Cliente> clientesAtivos = repository.findAllByAtivoTrue();
-        DadosCard cards = new DadosCard(clientesAtivos);
-        return ResponseEntity.ok(cards);
+    public ResponseEntity<DadosCardService> gerarCards() {
+        return ResponseEntity.ok(service.gerarCards());
     }
 
     @GetMapping("/buscarporid/{id}")
     public ResponseEntity<DadosListagemCliente> listarUnico(@PathVariable Long id) {
-        Cliente cliente = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosListagemCliente(cliente));
+        return ResponseEntity.ok(service.listarUnico(id));
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<DadosCliente> atualizar(@PathVariable Long id, @RequestBody DadosAtualizacaoCliente dados) {
-        var cliente = repository.getReferenceById(id);
-        cliente.atualizarInformacoes(dados);
-        return ResponseEntity.ok(new DadosCliente(cliente));
+        return ResponseEntity.ok(service.atualizar(id, dados));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<ResponseBody> excluir(@PathVariable Long id) {
-        var cliente = repository.getReferenceById(id);
-        cliente.excluir();
+        service.excluir(id);
         return ResponseEntity.noContent().build();
     }
 

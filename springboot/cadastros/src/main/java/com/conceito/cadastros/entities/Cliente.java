@@ -23,6 +23,19 @@ public class Cliente {
         this.ultimaAtualizacao = dados.ultimaAtualizacao();
     }
 
+    public Cliente(boolean a, String n, String e, String t, String c, LocalDate dn, String p, boolean ter, LocalDate dr, LocalDate ua) {
+        this.ativo = a;
+        this.nome = n;
+        this.email = e;
+        this.telefone = t;
+        this.cpf = c;
+        this.dataNascimento = dn;
+        this.profissao = p;
+        this.termos = ter;
+        this.dataRegistro = dr;
+        this.ultimaAtualizacao = ua;
+    }
+
     protected Cliente(){}
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

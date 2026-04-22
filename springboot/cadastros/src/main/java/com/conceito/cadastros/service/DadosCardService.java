@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
-public class DadosCard {
+public class DadosCardService {
     int totalClientes;
     double idadeMedia;
     int novosClientes;
 
-    public DadosCard(List<Cliente> listaCLientes) {
+    public DadosCardService(List<Cliente> listaCLientes) {
         totalClientes = listaCLientes.size();
         idadeMedia = calcularIdadeMedia(listaCLientes);
         novosClientes = encontrarNovosClientes(listaCLientes);
